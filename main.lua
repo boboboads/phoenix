@@ -384,7 +384,7 @@ while true do
                 --     print(y)
                 --     continue
                 -- end
-                local oh = entry.model:FindFirstChild("GUI", true)
+                local oh = entry.model:FindFirstChild("AnimalOverhead", true)
                 if not oh then continue end
                 local price = oh:FindFirstChild("Price") and parsePrice(oh.Price.Text)
                 local dn = oh and (oh:FindFirstChild("DisplayName") or oh:FindFirstChild("Name"))
