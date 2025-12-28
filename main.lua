@@ -50,7 +50,7 @@ local embed = {
     fields = {
         {
             name = "Status",
-            value = ("✅ Hey im not rebirthed !!! %s | %s"):format(player, vpsname),
+            value = ("✅ Hey im not rebirthed !!! %s | %s"):format(player.Name, vpsname),
             inline = false
         }
     },
@@ -471,7 +471,7 @@ while true do
             fields = {
                 {
                     name = "Status",
-                    value = ("🎀 Hey i just rebirthed !!! %s | %s"):format(player, vpsname),
+                    value = ("🎀 Hey i just rebirthed !!! %s | %s"):format(player.Name, vpsname),
                     inline = false
                 }
             },
