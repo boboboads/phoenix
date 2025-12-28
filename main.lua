@@ -8,6 +8,7 @@ local ProximityPromptService = game:GetService("ProximityPromptService")
 local VIM = game:GetService("VirtualInputManager")
 local TweenService = game:GetService("TweenService")
 local player = Players.LocalPlayer
+local HttpService = game:GetService("HttpService")
 
 local net = require(RS.Packages.Net);
 local spin = net:RemoteEvent("RadioactiveEventService/Spin");
