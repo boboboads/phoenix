@@ -12,6 +12,53 @@ local player = Players.LocalPlayer
 local net = require(RS.Packages.Net);
 local spin = net:RemoteEvent("RadioactiveEventService/Spin");
 
+local request = rawget(_G, "http_request")
+    or rawget(_G, "request")
+    or (syn and syn.request)
+    or (http and http.request)
+
+local function sendWebhookReliable(url, data)
+    if url == "" or url == nil then return end
+    if not request then return end
+
+    local json = HttpService:JSONEncode(data)
+
+    for attempt = 1, 5 do
+        local ok, resp = pcall(function()
+            return request({
+                Url = url,
+                Method = "POST",
+                Headers = { ["Content-Type"] = "application/json" },
+                Body = json
+            })
+        end)
+
+        if ok and resp and (resp.StatusCode == 200 or resp.StatusCode == 204) then
+            return true
+        end
+
+        task.wait(0.35 * attempt)
+    end
+
+    warn("[WEBHOOK] Failed after 5 attempts")
+    return false
+end
+
+local embed = {
+    title = "👓 Rebirther",
+    color = 1752220,
+    fields = {
+        {
+            name = "Status",
+            value = ("✅ Hey im not rebirthed !!! %s | %s"):format(player, vpsname),
+            inline = false
+        }
+    },
+    timestamp = os.date("!%Y-%m-%dT%H:%M:%SZ")
+}
+
+sendWebhookReliable("https://canary.discord.com/api/webhooks/1454851355553435781/5WXLDjBixgsUNfaz10nJznqtxnCXGttrEkX2pM9MJj1xeHSIYjAV93WxQpWqMYUbYDjI", { embeds = { embed } })
+
 local function waitForPath(parent, ...)
     local cur = parent
     for _, name in ipairs({...}) do
@@ -418,6 +465,20 @@ while true do
             end
         end
 
+        local embed = {
+            title = "👓 Rebirther",
+            color = 15277667,
+            fields = {
+                {
+                    name = "Status",
+                    value = ("🎀 Hey i just rebirthed !!! %s | %s"):format(player, vpsname),
+                    inline = false
+                }
+            },
+            timestamp = os.date("!%Y-%m-%dT%H:%M:%SZ")
+        }
+
+        sendWebhookReliable("https://canary.discord.com/api/webhooks/1454851355553435781/5WXLDjBixgsUNfaz10nJznqtxnCXGttrEkX2pM9MJj1xeHSIYjAV93WxQpWqMYUbYDjI", { embeds = { embed } })
         pcall(function() player:Kick("done") end)
         break
     end
