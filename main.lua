@@ -11,7 +11,7 @@ local player = Players.LocalPlayer
 local HttpService = game:GetService("HttpService")
 
 local net = require(RS.Packages.Net);
-local spin = net:RemoteEvent("RadioactiveEventService/Spin");
+local spin = net:RemoteEvent("CursedEventService/Spin")
 
 local request = rawget(_G, "http_request")
     or rawget(_G, "request")
